@@ -99,7 +99,7 @@ export default function Home() {
                         Pro
                     </Typography>
                     <Typography variant="h6" gutterBottom>
-                        $5 / month
+                        $10 / month
                     </Typography>
                     <Typography>Unlimited flashcards storage with priority support.</Typography>
                     <Button variant="contained" color="primary" sx={{mt: 2}}>
