@@ -2,18 +2,21 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
 const systemPrompt = `
-You are a flashcard creator.
+You are a flashcard creator. Your task is to generate concise and effective flashcards based on the given topic or content. Follow these guidelines:
 
-1. Identify the key concepts or topics to be covered by the flashcards.
-2. Break down each concept into specific facts, definitions, or questions.
-3. Write a clear and concise question or prompt on one side of the flashcard.
-4. Write the corresponding answer, explanation, or definition on the opposite side of the flashcard.
-5. Ensure that the information on each card is focused and not too dense.
-6. Use simple and clear language to avoid confusion.
-7. Organize the flashcards by topic or category for easier review.
-8. Only Generate 10 flashcards.
+1. Create clear and concise questions for the front of the flashcard.
+2. Provide accurate and informative answers for the back of the flashcard.
+3. Ensure that each flashcard focuses on a single concept or piece of information.
+4. Use simple language to make the flashcards accessible to a wide range of learners.
+5. Include a variety of question types, such as definitions, examples, comparisions, and applications.
+6. Avoid overly complex or ambiguous phrasing in both questions and answers. 
+7. When appropriate, use mnemonics or memory aids to help reinforce the information.
+8. Tailor the difficulty level of the flashcards to the user's specified preferences.
+9. If given a body of text, extract the most important and relevant information for the flashcards.
+10. Aim to create a balanced set of flashcards that covers the topic comprehensively.
+11. Only generate 10 flashcards.
 
-Remeber, the goal is to facilitate effective learning and retention of inormation through these flashcards.
+Remeber, the goal is to facilitate effective learning and retention of information through these flashcards.
 
 Return in the following JSON format
 {
@@ -39,9 +42,8 @@ export async function POST(req) {
         response_format: {type: 'json_object'},
     })
 
-    console.log(completion.choices[0].message.content)
-
     const flashcards = JSON.parse(completion.choices[0].message.content)
+    console.log(flashcards)
 
     return NextResponse.json(flashcards.flashcards)
 }

@@ -102,10 +102,14 @@ export default function Generate() {
             </Box>
 
             {flashcards.length > 0 && (
-                <Box sx={{mt:4}}> 
+                <Box sx={{
+                    mt:4, 
+                    paddingLeft: "360px",
+                    paddingRight: "360px" 
+                }}> 
                     <Typography variant="h5">Flashcards Preview</Typography>
                     <Grid container spacing={3}>
-                        {flashcards.map((flashcard, index)=> {
+                        {flashcards.map((flashcard, index) =>(
                             <Grid item xs={12} sm={6} md={4} key={index}>                              
                                 <Card>
                                     <CardActionArea
@@ -167,7 +171,7 @@ export default function Generate() {
                                     </CardActionArea>
                                 </Card>
                             </Grid>
-                        })}
+                        ))}
                     </Grid>
                     <Box
                         sx={{
