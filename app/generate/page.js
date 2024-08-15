@@ -5,7 +5,7 @@ import { useUser } from "@clerk/nextjs"
 import { Box, Button, Card, CardActionArea, CardContent, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, TextField, Typography } from "@mui/material"
 import { Grid } from "@mui/material";
 import { collection, doc, getDoc, writeBatch } from "firebase/firestore"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function Generate() {
@@ -15,7 +15,7 @@ export default function Generate() {
     const [text, setText] = useState('')
     const [name, setName] = useState('')
     const [open, setOpen] = useState(false)
-    const router = useRouter 
+    const router = useRouter() 
 
     const handleSubmit = () => {
         fetch('api/generate', {
