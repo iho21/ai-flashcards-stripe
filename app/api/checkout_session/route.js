@@ -4,7 +4,7 @@ import Stripe from "stripe"
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 const formatAmountForStripe = (amount)=> {
-    return Math.round(amount + 100)
+    return Math.round(amount + 1000.00)
 }
 
 export async function GET(req) {
@@ -31,7 +31,7 @@ export async function POST(req) {
                 product_data: {
                     name: 'Pro Subscription'
                 },
-                unit_amount: formatAmountForStripe(10.00),
+                unit_amount: formatAmountForStripe(0.00),
                 recurring: {
                     interval: 'month',
                     interval_count: 1,
