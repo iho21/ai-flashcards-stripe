@@ -18,6 +18,11 @@ export default function Generate() {
     const router = useRouter() 
 
     const handleSubmit = () => {
+        if(!user) {
+            alert('Please sign in to use generator.')
+            return
+        }
+
         fetch('api/generate', {
             method: 'POST',
             body: text,

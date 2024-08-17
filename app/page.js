@@ -64,12 +64,14 @@ export default function Home() {
             </Toolbar>
         </AppBar>
 
+        <Container sx={{paddingTop: "30px"}}>
+
         <Box
             textAlign="center"
         >
             <Typography variant="h2">Welcome to Flashcard SaaS</Typography>
             <Typography variant="h5" gutterBottom>The easiest way to make flashcards from your text</Typography>
-            <Button variant="contained" color="primary" sx={{mt: 2}}>Get Started</Button>
+            <Button variant="contained" href="/generate" color="primary" sx={{mt: 2}}>Get Started</Button>
         </Box> 
 
         <Container>
@@ -129,10 +131,9 @@ export default function Home() {
                                 textAlign={"center"}
                                 my={2.5}
                             >
-                                Easy Text Input
-                            </Typography>
-                            Simply input your text and let our software do the
-                            rest. It's simple!
+                                Customizable
+                            </Typography> 
+                            The software can adapt to different difficulty levels or focus on specific topics.
                         </Paper>
                     </Grid>
                     <Grid item xs={4} style={{ width: "100%" }}>
@@ -155,10 +156,9 @@ export default function Home() {
                                 textAlign={"center"}
                                 my={2.5}
                             >
-                                Easy Text Input
+                                Accesible
                             </Typography>
-                            Simply input your text and let our software do the
-                            rest. It's simple!
+                            The software can rephrase complex concepts into simpler terms.
                         </Paper>
                     </Grid>
                 </Grid>
@@ -180,10 +180,10 @@ export default function Home() {
                         Basic
                     </Typography>
                     <Typography variant="h6" gutterBottom>
-                        $5 / month
+                        $0 / month
                     </Typography>
                     <Typography>Access to basic flashcard features and limited storage</Typography>
-                    <Button variant="contained" color="primary" sx={{mt: 2}}>
+                    <Button variant="contained" color="primary" sx={{mt: 2}} href="/flashcards">
                         Choose Basic
                     </Button>
                     </Box>
@@ -201,7 +201,7 @@ export default function Home() {
                         Pro
                     </Typography>
                     <Typography variant="h6" gutterBottom>
-                        $10 / month
+                        $5 / month
                     </Typography>
                     <Typography>Unlimited flashcards storage with priority support.</Typography>
                     <Button variant="contained" color="primary" sx={{mt: 2}} onClick={HandleSubmit}>
@@ -211,6 +211,8 @@ export default function Home() {
                 </Grid>
             </Grid>
         </Box>
+
+        </Container>
 
     </Container>
 

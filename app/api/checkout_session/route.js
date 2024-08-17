@@ -4,7 +4,7 @@ import Stripe from "stripe"
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 const formatAmountForStripe = (amount)=> {
-    return Math.round(amount + 1000.00)
+    return Math.round(amount + 500.00)
 }
 
 export async function GET(req) {
