@@ -15,6 +15,8 @@ export default function Flashcard() {
     const {isLoaded, isSignedIn, user} = useUser()
     const [flashcards, setFlashcards] = useState([])
     const [flipped, setFlipped] = useState([])
+
+    const[collectionName, setCollectionName] = useState('')
     
     const searcParams = useSearchParams()
     const search = searcParams.get('id')
@@ -29,6 +31,7 @@ export default function Flashcard() {
             docs.forEach((doc) => {
                 flashcards.push({id: doc.id, ...doc.data()})
             })
+            setCollectionName(colRef._path.segments[2])
             setFlashcards(flashcards)
         }
         getFlashcard()
@@ -66,7 +69,7 @@ export default function Flashcard() {
 
 
         <Container sx={{paddingTop: "30px"}}>
-            <Typography variant="h2"> Flashcards</Typography>
+            <Typography variant="h2"> {collectionName}</Typography>
             <Grid container spacing={3} sx={{mt: 4}}>
 
                         {flashcards.map((flashcard, index) =>(
