@@ -6,13 +6,17 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore"
 import {db} from "../../firebase"
 
 import { useSearchParams } from "next/navigation"
-import { Box, Button, Card, CardActionArea, CardContent, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, TextField, Typography } from "@mui/material"
+import { Box, Button, Card, CardActionArea, CardContent, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, TextField, Typography, AppBar, Toolbar } from "@mui/material"
 import { Grid } from "@mui/material";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+
 
 export default function Flashcard() {
     const {isLoaded, isSignedIn, user} = useUser()
     const [flashcards, setFlashcards] = useState([])
     const [flipped, setFlipped] = useState([])
+
+    const[collectionName, setCollectionName] = useState('')
     
     const searcParams = useSearchParams()
     const search = searcParams.get('id')
@@ -27,6 +31,7 @@ export default function Flashcard() {
             docs.forEach((doc) => {
                 flashcards.push({id: doc.id, ...doc.data()})
             })
+            setCollectionName(colRef._path.segments[2])
             setFlashcards(flashcards)
         }
         getFlashcard()
@@ -45,6 +50,26 @@ export default function Flashcard() {
 
     return (
         <Container maxWidth = 'false' disableGutters>
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="h6" style={{flexGrow: 1}}>Flashcard SaaS</Typography>
+                    <SignedOut>
+                        <Button color="inherit" href="/sign-in">
+                                Login
+                        </Button>
+                        <Button color="inherit" href="/sign-up">
+                                Sign up
+                        </Button>
+                    </SignedOut>
+                    <SignedIn>
+                        <UserButton />
+                    </SignedIn>
+                </Toolbar>
+            </AppBar>
+
+
+        <Container sx={{paddingTop: "30px"}}>
+            <Typography variant="h2"> {collectionName}</Typography>
             <Grid container spacing={3} sx={{mt: 4}}>
 
                         {flashcards.map((flashcard, index) =>(
@@ -120,6 +145,8 @@ export default function Flashcard() {
                     >
 
                     </Box>
+                    </Container>
+
         </Container>
     )
 

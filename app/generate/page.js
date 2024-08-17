@@ -2,11 +2,13 @@
 
 import { db } from "../../firebase"
 import { useUser } from "@clerk/nextjs"
-import { Box, Button, Card, CardActionArea, CardContent, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, TextField, Typography } from "@mui/material"
+import { Box, Button, Card, CardActionArea, CardContent, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, TextField, Typography, AppBar, Toolbar } from "@mui/material"
 import { Grid } from "@mui/material";
 import { collection, doc, getDoc, writeBatch } from "firebase/firestore"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+
 
 export default function Generate() {
     const {isLoaded, isSignedIn, user} = useUser()
@@ -79,6 +81,25 @@ export default function Generate() {
     }
     return(
         <Container maxWidth="false" disableGutters>
+            <AppBar position="static">
+            <Toolbar>
+                <Typography variant="h6" style={{flexGrow: 1}}>Flashcard SaaS</Typography>
+                <SignedOut>
+                    <Button color="inherit" href="/sign-in">
+                            Login
+                    </Button>
+                    <Button color="inherit" href="/sign-up">
+                            Sign up
+                    </Button>
+                </SignedOut>
+                <SignedIn>
+                    <UserButton />
+                </SignedIn>
+            </Toolbar>
+        </AppBar>
+
+
+
             <Box 
                 sx={{
                 mt: 4, mb: 6, display: 'flex', flexDirection: 'column', alignItems: 'center'
