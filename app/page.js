@@ -1,5 +1,6 @@
-import getStripe from "../utils/get-stripe";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+'use client'
+import getStripe from "../utils/get-stripe"
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import {
     AppBar,
     Box,
@@ -8,52 +9,70 @@ import {
     Grid,
     Toolbar,
     Typography,
-} from "@mui/material";
-import Head from "next/head";
-import Link from "next/link";
-import Paper from "@mui/material/Paper";
+    Paper
+} from "@mui/material"
+import Head from "next/head"
+import Link from "next/link"
 
 export default function Home() {
-    return (
-        <Container maxWidth="false" disableGutters>
-            <Head>
-                <title>Flashcard SaaS</title>
-                <meta
-                    name="description"
-                    content="Create flashcard from your text"
-                />
-            </Head>
+    const HandleSubmit = async () => {
+        const checkoutSession = await fetch('/api/checkout_session', {
+            method: 'POST',
+            headers: {
+                origin: 'http://localhost:3000',
+          },
+        })
 
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" style={{ flexGrow: 1 }}>
-                        Flashcard SaaS
-                    </Typography>
-                    <SignedOut>
-                        <Button color="inherit" href="/sign-in">
+        const checkoutSessionJson = await checkoutSession.json()
+
+        if (checkoutSession.statusCode === 500) {
+            console.error(session_Id)
+            return
+        }
+
+        const stripe = await getStripe()
+
+        const {error} = await stripe.redirectToCheckout({
+            sessionId: checkoutSessionJson.id,
+        })
+
+        if (error) {
+            console.warn(error.message)
+        }
+    }
+  return (
+    <Container maxWidth="false" disableGutters>
+        <Head>
+            <title>Flashcard SaaS</title>
+            <meta name = 'description' content="Create flashcard from your text" />
+        </Head>
+
+        <AppBar position="static">
+            <Toolbar>
+                <Typography variant="h6" style={{flexGrow: 1}}>Flashcard SaaS</Typography>
+                <SignedOut>
+                    <Button color="inherit" href="/sign-in">
                             Login
-                        </Button>
-                        <Button color="inherit" href="/sign-up">
+                    </Button>
+                    <Button color="inherit" href="/sign-up">
                             Sign up
-                        </Button>
-                    </SignedOut>
-                    <SignedIn>
-                        <UserButton />
-                    </SignedIn>
-                </Toolbar>
-            </AppBar>
+                    </Button>
+                </SignedOut>
+                <SignedIn>
+                    <UserButton />
+                </SignedIn>
+            </Toolbar>
+        </AppBar>
 
-            <Box textAlign="center" my={3}>
-                <Typography variant="h2">Welcome to Flashcard SaaS</Typography>
-                <Typography variant="h5" gutterBottom>
-                    The easiest way to make flashcards from your text
-                </Typography>
-                <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-                    Get Started
-                </Button>
-            </Box>
+        <Box
+            textAlign="center"
+        >
+            <Typography variant="h2">Welcome to Flashcard SaaS</Typography>
+            <Typography variant="h5" gutterBottom>The easiest way to make flashcards from your text</Typography>
+            <Button variant="contained" color="primary" sx={{mt: 2}}>Get Started</Button>
+        </Box> 
 
-            <Container>
+        <Container>
                 <Typography
                     variant="h4"
                     textAlign={"center"}
@@ -144,69 +163,56 @@ export default function Home() {
                     </Grid>
                 </Grid>
             </Container>
-            <Box sx={{ my: 10, textAlign: "center" }}>
-                <Typography variant="h4" gutterBottom>
-                    Pricing
-                </Typography>
-                <Grid container spacing={4}>
-                    <Grid item xs={12} md={6}>
-                        <Box
-                            sx={{
-                                p: 3,
-                                border: "1px solid",
-                                borderColor: "grey.300",
-                                borderRadius: 2,
-                            }}
-                        >
-                            <Typography variant="h5" gutterBottom>
-                                Basic
-                            </Typography>
-                            <Typography variant="h6" gutterBottom>
-                                $5 / month
-                            </Typography>
-                            <Typography>
-                                Access to basic flashcard features and limited
-                                storage
-                            </Typography>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                sx={{ mt: 2 }}
-                            >
-                                Choose Basic
-                            </Button>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Box
-                            sx={{
-                                p: 3,
-                                border: "1px solid",
-                                borderColor: "grey.300",
-                                borderRadius: 2,
-                            }}
-                        >
-                            <Typography variant="h5" gutterBottom>
-                                Pro
-                            </Typography>
-                            <Typography variant="h6" gutterBottom>
-                                $10 / month
-                            </Typography>
-                            <Typography>
-                                Unlimited flashcards storage with priority
-                                support.
-                            </Typography>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                sx={{ mt: 2 }}
-                            >
-                                Choose Pro
-                            </Button>
-                        </Box>
-                    </Grid>
+
+        <Box sx={{my: 6, textAlign: 'center'}}>
+            <Typography variant="h6" gutterBottom>Pricing</Typography>
+            <Grid container spacing={4}>
+                <Grid item xs={12} md={6}>
+                    <Box
+                        sx={{
+                            p: 3,
+                            border: '1px solid',
+                            borderColor: 'grey.300',
+                            borderRadius: 2,
+                        }}
+                    >
+                    <Typography variant="h5" gutterBottom>
+                        Basic
+                    </Typography>
+                    <Typography variant="h6" gutterBottom>
+                        $5 / month
+                    </Typography>
+                    <Typography>Access to basic flashcard features and limited storage</Typography>
+                    <Button variant="contained" color="primary" sx={{mt: 2}}>
+                        Choose Basic
+                    </Button>
+                    </Box>
                 </Grid>
-            </Box>
-        </Container>
-    );
+                <Grid item xs={12} md={6}>
+                    <Box
+                        sx={{
+                            p: 3,
+                            border: '1px solid',
+                            borderColor: 'grey.300',
+                            borderRadius: 2,
+                        }}
+                    >
+                    <Typography variant="h5" gutterBottom>
+                        Pro
+                    </Typography>
+                    <Typography variant="h6" gutterBottom>
+                        $10 / month
+                    </Typography>
+                    <Typography>Unlimited flashcards storage with priority support.</Typography>
+                    <Button variant="contained" color="primary" sx={{mt: 2}} onClick={HandleSubmit}>
+                        Choose Pro
+                    </Button>
+                    </Box>
+                </Grid>
+            </Grid>
+        </Box>
+
+    </Container>
+
+  )
 }
