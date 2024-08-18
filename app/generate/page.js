@@ -83,7 +83,9 @@ export default function Generate() {
         <Container maxWidth="false" disableGutters>
             <AppBar position="static">
             <Toolbar>
+                <Button color="inherit" href="/" >Home</Button>
                 <Typography variant="h6" style={{flexGrow: 1}}>Flashcard SaaS</Typography>
+                
                 <SignedOut>
                     <Button color="inherit" href="/sign-in">
                             Login
