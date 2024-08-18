@@ -110,7 +110,7 @@ export default function Home() {
                                 Easy Text Input
                             </Typography>
                             Simply input your text and let our software do the
-                            rest. It's simple!
+                            rest. Its simple!
                         </Paper>
                     </Grid>
                     <Grid item xs={4} style={{ width: "100%" }}>
