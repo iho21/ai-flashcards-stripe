@@ -14,6 +14,8 @@ import {
 import Head from "next/head"
 import Link from "next/link"
 
+import theme from "../theme"
+
 export default function Home() {
     const HandleSubmit = async () => {
         const checkoutSession = await fetch('/api/checkout_session', {
@@ -95,7 +97,7 @@ export default function Home() {
                                 textAlign: "center",
                                 alignItems: "center",
                                 padding: "10px",
-                                backgroundColor: "#1976d2",
+                                backgroundColor: "#00921d",
                                 color: "white",
                                 borderRadius: "8px",
                             }}
@@ -121,7 +123,7 @@ export default function Home() {
                                 textAlign: "center",
                                 alignItems: "center",
                                 padding: "10px",
-                                backgroundColor: "#1976d2",
+                                backgroundColor: "#00921d",
                                 color: "white",
                                 borderRadius: "8px",
                             }}
@@ -146,7 +148,7 @@ export default function Home() {
                                 textAlign: "center",
                                 alignItems: "center",
                                 padding: "10px",
-                                backgroundColor: "#1976d2",
+                                backgroundColor: "#00921d",
                                 color: "white",
                                 borderRadius: "8px",
                             }}
